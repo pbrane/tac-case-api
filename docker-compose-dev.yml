@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   authdb-dev:
     container_name: authdb-dev
