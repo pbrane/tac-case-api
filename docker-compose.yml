@@ -1,0 +1,161 @@
+version: '3.8'
+
+services:
+  authdb-prod:
+    container_name: authdb-prod
+    image: postgres:17
+    env_file: 
+      - path: ./authdb-prod.env
+        required: true
+    volumes:
+      - authdb_data:/var/docker/taccaseapi
+      - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+      - "6432:5432"
+    networks:
+      - backend
+#    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    profiles:
+      - production
+
+  authdb-dev:
+    container_name: authdb-dev
+    image: postgres:17
+    env_file: 
+      - path: ./authdb-dev.env
+        required: true
+    volumes:
+      - /dev/null:/var/docker/data/taccaseapi
+      - ./db_init:/docker-entrypoint-initdb.d
+    ports:
+      - "6433:5432"  # Different port for dev to avoid conflicts
+    networks:
+      - backend
+#    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    profiles:
+      - development
+
+  authsvr-prod:
+    container_name: authsvr-prod
+    env_file: 
+      - path: ./authsvr-prod.env
+        required: true
+    build:
+      context: ./tac-case-api-auth-server
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "9080:8080"
+    depends_on:
+      authdb-prod:
+        condition: service_healthy
+    networks:
+      - backend
+#    restart: unless-stopped
+    profiles:
+      - production
+
+  authsvr-dev:
+    container_name: authsvr-dev
+    env_file: 
+      - path: ./authsvr-dev.env
+        required: true
+    build:
+      context: ./tac-case-api-auth-server
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "9081:8080"
+    depends_on:
+      authdb-dev: 
+        condition: service_healthy
+    networks:
+      - backend
+#    restart: unless-stopped
+    profiles:
+      - development
+
+  apisvc-prod:
+    container_name: apisvc-prod
+    env_file: 
+      - path: ./apisvc-prod.env
+        required: true
+    build:
+      context: ./tac-case-api-service
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+#    restart: unless-stopped
+    profiles:
+      - production
+
+  apisvc-dev:
+    container_name: apisvc-dev
+    env_file: 
+      - path: ./apisvc-dev.env
+        required: true
+    build:
+      context: ./tac-case-api-service
+      dockerfile: Dockerfile
+    tty: true
+    stdin_open: true
+    ports:
+      - 8080:8080
+    networks:
+      - backend
+    profiles:
+      - development
+
+  client-prod:
+    container_name: client-prod
+    build:
+      context: ./tac-case-api-oauth2-sample-client
+      dockerfile: Dockerfile
+    env_file: 
+      - path: ./client-prod.env
+        required: true
+    tty: true
+    stdin_open: true
+    networks:
+      - backend
+    profiles:
+      - production
+
+  client-dev:
+    container_name: client-dev
+    build:
+      context: ./tac-case-api-oauth2-sample-client
+      dockerfile: Dockerfile
+    env_file: 
+      - path: ./client-dev.env
+        required: true
+    tty: true
+    stdin_open: true
+    networks:
+      - backend
+    profiles:
+      - development
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  authdb_data:
+
