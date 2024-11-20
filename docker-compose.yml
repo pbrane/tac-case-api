@@ -47,6 +47,7 @@ services:
 
   authsvr-prod:
     container_name: authsvr-prod
+    image: tac-case-api-auth-server
     env_file: 
       - path: ./authsvr-prod.env
         required: true
@@ -68,6 +69,7 @@ services:
 
   authsvr-dev:
     container_name: authsvr-dev
+    image: tac-case-api-auth-server
     env_file: 
       - path: ./authsvr-dev.env
         required: true
@@ -89,7 +91,8 @@ services:
 
   apisvc-prod:
     container_name: apisvc-prod
-    env_file: 
+    image: tac-case-api-service
+    env_file:
       - path: ./apisvc-prod.env
         required: true
     build:
@@ -107,6 +110,7 @@ services:
 
   apisvc-dev:
     container_name: apisvc-dev
+    image: tac-case-api-service
     env_file: 
       - path: ./apisvc-dev.env
         required: true
@@ -124,6 +128,7 @@ services:
 
   client-prod:
     container_name: client-prod
+    image: tac-case-api-oauth2-sample-client
     build:
       context: ./tac-case-api-oauth2-sample-client
       dockerfile: Dockerfile
@@ -139,6 +144,7 @@ services:
 
   client-dev:
     container_name: client-dev
+    image: tac-case-api-oauth2-sample-client
     build:
       context: ./tac-case-api-oauth2-sample-client
       dockerfile: Dockerfile
