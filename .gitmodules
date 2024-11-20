@@ -1,0 +1,9 @@
+[submodule "tac-case-api-auth-server"]
+	path = tac-case-api-auth-server
+	url = git@github.com:pbrane/tac-case-api-auth-server.git
+[submodule "tac-case-api-oauth2-sample-client"]
+	path = tac-case-api-oauth2-sample-client
+	url = git@github.com:pbrane/tac-case-api-oauth2-sample-client.git
+[submodule "tac-case-api-service"]
+	path = tac-case-api-service
+	url = git@github.com:pbrane/tac-case-api-service.git
