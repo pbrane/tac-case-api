@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f az-kompose-prod2.yml
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: authsvr-prod
+  name: authsvr-prod
+spec:
+  ports:
+    - name: "9080"
+      port: 9080
+      targetPort: 8080
+  selector:
+    io.kompose.service: authsvr-prod
+status:
+  loadBalancer: {}

@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f az-kompose-prod2.yml
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: authdb-prod
+  name: authdb-prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: authdb-prod
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f az-kompose-prod2.yml
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: authdb-prod
+    spec:
+      containers:
+        - env:
+            - name: PGDATA
+              value: /authdb-prod/data/postgres
+            - name: POSTGRES_DB
+              value: tacauthdb
+            - name: POSTGRES_PASSWORD
+              value: tacauthpass
+            - name: POSTGRES_USER
+              value: tacauthuser
+          image: postgres:17
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready -d postgres
+            failureThreshold: 3
+            periodSeconds: 10
+            timeoutSeconds: 3
+          name: authdb-prod
+          ports:
+            - containerPort: 5432
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/docker/taccaseapi
+              name: authdb-data
+      restartPolicy: Always
+      volumes:
+        - name: authdb-data
+          persistentVolumeClaim:
+            claimName: authdb-data
+status: {}
