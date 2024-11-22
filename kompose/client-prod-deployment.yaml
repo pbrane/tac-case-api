@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert -f az-kompose-prod2.yml
+    kompose.cmd: kompose convert -f az-kompose-prod.yml
     kompose.version: 1.26.1 (a9d05d509)
   creationTimestamp: null
   labels:
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       annotations:
-        kompose.cmd: kompose convert -f az-kompose-prod2.yml
+        kompose.cmd: kompose convert -f az-kompose-prod.yml
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
