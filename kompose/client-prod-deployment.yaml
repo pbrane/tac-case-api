@@ -50,6 +50,22 @@ spec:
             - name: USER_INFO_EP_URI
               value: /oauth2/userinfo
           image: pbranestrategy/tac-case-api-oauth2-sample-client:0.1.3
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            successThreshold: 1
           name: client-prod
           ports:
             - containerPort: 8080

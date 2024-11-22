@@ -9,7 +9,14 @@ az containerapp create \
              CLIENT_SECRET=$CLIENT_SECRET \
              CLIENT_NAME=$CLIENT_NAME \
              SERVER_PORT=8080 \
-             SPRING_DATASOURCE_URL=jdbc:postgresql://authdb-prod:5432/tacauthd \
+             SPRING_DATASOURCE_URL=jdbc:postgresql://authdb-prod:5432/tacauthdb \
              SPRING_DATASOURCE_USERNAME=$DB_USERNAME \
              SPRING_DATASOURCE_PASSWORD=$DB_PASSWORD \
-             AUTH_SVR_ENV=production
+             AUTH_SVR_ENV=production \
+  --exposed-port 8080 \
+  --target-port 8080 \
+  --transport tcp \
+  --ingress external \
+  --min-replicas 1 \
+  --max-replicas 3
+
