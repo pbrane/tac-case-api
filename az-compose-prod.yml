@@ -11,7 +11,7 @@ services:
       - authdb_data:/var/docker/taccaseapi
       - ./db_init:/docker-entrypoint-initdb.d
     ports:
-      - 6432:5432
+      - 5432:5432
     networks:
       - backend
 #    restart: unless-stopped
@@ -35,9 +35,6 @@ services:
       - SPRING_DATASOURCE_USERNAME=tacauthuser
       - SPRING_DATASOURCE_PASSWORD=tacauthpass
       - AUTH_SVR_ENV=production
-    build:
-      context: ./tac-case-api-auth-server
-      dockerfile: Dockerfile
     tty: true
     stdin_open: true
     ports:
@@ -58,9 +55,6 @@ services:
       - SERVER_PORT=8080
       - AUTH_SVC_ISSUER_URI=http://authsvr-prod:8080/oauth2/jwks
       - API_SVR_ENV=production
-    build:
-      context: ./tac-case-api-service
-      dockerfile: Dockerfile
     tty: true
     stdin_open: true
     ports:
@@ -88,9 +82,6 @@ services:
       - CLIENT_RESP_TIMEOUT=3000
       - RESOURCE_BASE_URI=http://apisvc-prod:8080/api/v1
       - AUTH_BASE_URI=http://authsvr-prod:8080
-    build:
-      context: ./tac-case-api-oauth2-sample-client
-      dockerfile: Dockerfile
     tty: true
     stdin_open: true
     networks:

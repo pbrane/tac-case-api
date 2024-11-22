@@ -1,0 +1,129 @@
+{
+  "id": "/subscriptions/87ed1b31-e580-4be3-be4a-6c0379f41995/resourceGroups/MolexProject/providers/Microsoft.App/containerapps/admin-console-prod",
+  "identity": {
+    "type": "None"
+  },
+  "location": "West US",
+  "name": "admin-console-prod",
+  "properties": {
+    "configuration": {
+      "activeRevisionsMode": "Single",
+      "dapr": null,
+      "ingress": {
+        "additionalPortMappings": null,
+        "allowInsecure": true,
+        "clientCertificateMode": null,
+        "corsPolicy": null,
+        "customDomains": null,
+        "exposedPort": 0,
+        "external": false,
+        "fqdn": "admin-console-prod.internal.ashypond-028f49d8.westus.azurecontainerapps.io",
+        "ipSecurityRestrictions": null,
+        "stickySessions": null,
+        "targetPort": 0,
+        "traffic": [
+          {
+            "latestRevision": true,
+            "weight": 100
+          }
+        ],
+        "transport": "Auto"
+      },
+      "maxInactiveRevisions": 100,
+      "registries": null,
+      "secrets": null,
+      "service": null
+    },
+    "customDomainVerificationId": "E6585495B6EA46FB1B717336A8C5092C5241E6FFFA818A8711AB21506956F56D",
+    "delegatedIdentities": [],
+    "environmentId": "/subscriptions/87ed1b31-e580-4be3-be4a-6c0379f41995/resourceGroups/MolexProject/providers/Microsoft.App/managedEnvironments/MSFT-API-ENV",
+    "eventStreamEndpoint": "https://westus.azurecontainerapps.dev/subscriptions/87ed1b31-e580-4be3-be4a-6c0379f41995/resourceGroups/MolexProject/containerApps/admin-console-prod/eventstream",
+    "latestReadyRevisionName": "admin-console-prod--v5nvd5z",
+    "latestRevisionFqdn": "admin-console-prod--v5nvd5z.internal.ashypond-028f49d8.westus.azurecontainerapps.io",
+    "latestRevisionName": "admin-console-prod--v5nvd5z",
+    "managedEnvironmentId": "/subscriptions/87ed1b31-e580-4be3-be4a-6c0379f41995/resourceGroups/MolexProject/providers/Microsoft.App/managedEnvironments/MSFT-API-ENV",
+    "outboundIpAddresses": [
+      "20.253.254.228",
+      "20.253.254.247",
+      "20.253.254.64",
+      "20.253.254.235",
+      "104.210.49.205",
+      "104.210.49.250",
+      "104.210.49.206",
+      "104.210.55.200",
+      "104.210.49.225",
+      "104.210.49.214",
+      "13.87.246.93",
+      "13.87.246.131",
+      "13.87.246.102",
+      "13.87.246.100",
+      "13.93.214.71",
+      "13.91.44.183",
+      "13.91.98.58",
+      "13.91.96.202",
+      "13.91.40.31",
+      "13.91.45.140",
+      "138.91.144.106",
+      "138.91.144.49",
+      "138.91.144.57",
+      "138.91.144.85",
+      "138.91.144.77",
+      "138.91.144.71",
+      "138.91.144.53",
+      "138.91.144.88",
+      "138.91.144.74",
+      "138.91.144.67",
+      "20.43.246.242"
+    ],
+    "provisioningState": "Succeeded",
+    "runningStatus": "Running",
+    "template": {
+      "containers": [
+        {
+          "env": [
+            {
+              "name": "POSTGRES_USER"
+            },
+            {
+              "name": "POSTGRES_PASSWORD"
+            },
+            {
+              "name": "POSTGRES_DB"
+            },
+            {
+              "name": "PGDATA"
+            }
+          ],
+          "image": "pbranestrategy/ubuntu-noble-with-bash",
+          "name": "admin-console-prod",
+          "resources": {
+            "cpu": 0.5,
+            "ephemeralStorage": "2Gi",
+            "memory": "1Gi"
+          }
+        }
+      ],
+      "initContainers": null,
+      "revisionSuffix": "",
+      "scale": {
+        "maxReplicas": 3,
+        "minReplicas": 1,
+        "rules": null
+      },
+      "serviceBinds": null,
+      "terminationGracePeriodSeconds": null,
+      "volumes": null
+    },
+    "workloadProfileName": "Consumption"
+  },
+  "resourceGroup": "MolexProject",
+  "systemData": {
+    "createdAt": "2024-11-21T17:48:59.5764616",
+    "createdBy": "david@beaconstrategists.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2024-11-21T17:48:59.5764616",
+    "lastModifiedBy": "david@beaconstrategists.com",
+    "lastModifiedByType": "User"
+  },
+  "type": "Microsoft.App/containerApps"
+}
