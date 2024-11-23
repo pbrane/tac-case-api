@@ -1,10 +1,12 @@
 #!/bin/bash
 
+source ./authdb-prod.env
+
 az containerapp create \
   --name authdb-prod \
   --resource-group $AZ_RESOURCE_GROUP \
   --environment $AZ_CONTAINERAPP_ENV \
-  --image postgres:17 \
+  --image pbranestrategy/tac-case-api-db-postgres:0.1.5 \
   --env-vars POSTGRES_USER=$DB_USERNAME \
              POSTGRES_PASSWORD=$DB_PASSWORD \
              POSTGRES_DB="tacauthdb" \

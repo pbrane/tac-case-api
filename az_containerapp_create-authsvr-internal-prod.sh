@@ -1,10 +1,12 @@
 #!/bin/bash
 
+source ./authsvr-internal-prod.env
+
 az containerapp create \
-  --name authsvr-prod \
+  --name authsvr-internal-prod \
   --resource-group $AZ_RESOURCE_GROUP \
   --environment $AZ_CONTAINERAPP_ENV \
-  --image pbranestrategy/tac-case-api-auth-server:0.1.3 \
+  --image pbranestrategy/tac-case-api-auth-server:0.1.5 \
   --env-vars CLIENT_ID=$CLIENT_ID \
              CLIENT_SECRET=$CLIENT_SECRET \
              CLIENT_NAME=$CLIENT_NAME \
@@ -16,7 +18,7 @@ az containerapp create \
   --exposed-port 8080 \
   --target-port 8080 \
   --transport tcp \
-  --ingress external \
+  --ingress internal \
   --min-replicas 1 \
   --max-replicas 3
 
